@@ -26,14 +26,17 @@ func main() {
 	s := grpc.NewServer()
 
 	// Registering with Calculator Service created for us from the proto file
-	calculatorpb.RegisterCalculatorServiceServer(s, &server{})
+	calculatorpb.RegisterSumServiceServer(s, &server{})
+	calculatorpb.RegisterSubServiceServer(s, &server{})
+	calculatorpb.RegisterMulServiceServer(s, &server{})
+	calculatorpb.RegisterDivServiceServer(s, &server{})
 
 	if e := s.Serve(l); e != nil {
 		log.Fatalf("Failed to serve: %f", e)
 	}
 }
 
-// Requst function
+// Requst Sum function
 func (*server) Sum(ctx context.Context, request *calculatorpb.SumRequest) (*calculatorpb.SumResponse, error) {
 
 	fmt.Printf("Sum function invoked by %v\n", request)
@@ -45,6 +48,60 @@ func (*server) Sum(ctx context.Context, request *calculatorpb.SumRequest) (*calc
 	result := a + b
 
 	response := &calculatorpb.SumResponse{
+		Result: result,
+	}
+
+	return response, nil
+}
+
+// Requst Sub function
+func (*server) Sub(ctx context.Context, request *calculatorpb.SubRequest) (*calculatorpb.SubResponse, error) {
+
+	fmt.Printf("Sub function invoked by %v\n", request)
+
+	a := request.GetA()
+	b := request.GetB()
+
+	// Subtract numbers
+	result := a - b
+
+	response := &calculatorpb.SubResponse{
+		Result: result,
+	}
+
+	return response, nil
+}
+
+// Requst Mul function
+func (*server) Mul(ctx context.Context, request *calculatorpb.MulRequest) (*calculatorpb.MulResponse, error) {
+
+	fmt.Printf("Mul function invoked by %v\n", request)
+
+	a := request.GetA()
+	b := request.GetB()
+
+	// Multiply numbers
+	result := a * b
+
+	response := &calculatorpb.MulResponse{
+		Result: result,
+	}
+
+	return response, nil
+}
+
+// Requst Div function
+func (*server) Div(ctx context.Context, request *calculatorpb.DivRequest) (*calculatorpb.DivResponse, error) {
+
+	fmt.Printf("Div function invoked by %v\n", request)
+
+	a := request.GetA()
+	b := request.GetB()
+
+	// Div numbers
+	result := a / b
+
+	response := &calculatorpb.DivResponse{
 		Result: result,
 	}
 

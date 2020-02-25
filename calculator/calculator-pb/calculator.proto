@@ -13,6 +13,46 @@ message SumResponse{
     int32 result = 1;
 }
 
-service CalculatorService{
+message SubRequest{
+    int32 a = 1;
+    int32 b = 2;
+}
+
+message SubResponse{
+    int32 result = 1;
+}
+
+message MulRequest{
+    int32 a = 1;
+    int32 b = 2;
+}
+
+message MulResponse{
+    int32 result = 1;
+}
+
+message DivRequest{
+    int32 a = 1;
+    int32 b = 2;
+}
+
+message DivResponse{
+    int32 result = 1;
+}
+
+
+service SumService{
     rpc Sum (SumRequest) returns (SumResponse) {};
+}
+
+service SubService{
+    rpc Sub (SubRequest) returns (SubResponse) {};
+}
+
+service MulService{
+    rpc Mul (MulRequest) returns (MulResponse) {};
+}
+
+service DivService{
+    rpc Div (DivRequest) returns (DivResponse) {};
 }
